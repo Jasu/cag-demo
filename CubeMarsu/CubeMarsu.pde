@@ -74,7 +74,7 @@ void setMatrix()
 
 void draw() {
   clear();
-  pointLight(255, 255, 127, 400, 300, 400);
+  pointLight(255, 255, 255, 400, 300, 0);
   setMatrix();
   drawBackground(song.position());
   setMatrix();

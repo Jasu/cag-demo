@@ -11,6 +11,31 @@ PVector tryGetVector(JSONObject o, String name, PVector default_)
   }
 }
 
+color tryGetColor(JSONObject o, String name, color default_)
+{
+  try
+  {
+    JSONArray vec = o.getJSONArray(name);
+    return color(vec.getInt(0), vec.getInt(1), vec.getInt(2));
+  }
+  catch (RuntimeException e)
+  {
+    return default_;
+  }
+}
+
+PImage tryGetTexture(JSONObject o, String name)
+{
+  try
+  {
+    return loadImage(o.getString(name));
+  }
+  catch (RuntimeException e)
+  {
+    return null;
+  }
+}
+
 float tryGetFloat(JSONObject o, String name, float default_)
 {
   try
@@ -25,7 +50,6 @@ float tryGetFloat(JSONObject o, String name, float default_)
 
 MarsunPalanen[] loadMarsu(String file)
 {
-  PImage tex = loadImage("kuutio.jpg");
   JSONArray palaset = loadJSONArray(file);
   MarsunPalanen[] result = new MarsunPalanen[palaset.size()];
   for (int i = 0; i < palaset.size(); i++)
@@ -54,7 +78,8 @@ MarsunPalanen[] loadMarsu(String file)
                                   rotationSpeed,
                                   oscillationSpeed,
                                   scaleSpeed,
-                                  tex);
+                                  tryGetColor(pala, "color", color(0,0,0)),
+                                  tryGetTexture(pala, "texture"));
   }
   return result;
 }
@@ -68,7 +93,8 @@ void setupMarsu()
 
 void drawMarsu(float ms)
 {
-  rotateY(ms / 2000);
+  rotateY(ms / 1000);
+  rotateX(0.5);
 
   for (MarsunPalanen pala : marsu)
   {
