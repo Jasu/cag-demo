@@ -64,11 +64,9 @@ void setupMarsu()
   marsu = loadMarsu("marsu.json");
 }
 
-void drawMarsu(int ms)
+void drawMarsu(float ms)
 {
-  noFill();
-  stroke(255);
-  //box(80);
+  rotateY(ms / 2000);
 
   for (MarsunPalanen pala : marsu)
   {
