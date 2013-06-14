@@ -53,6 +53,7 @@ void setup() {
   smooth();
   stroke(255);
   setupAudio();
+  setupMarsu();
 }
 
 void setMatrix()
@@ -65,7 +66,7 @@ void setMatrix()
     scale_ = scaleWidth;
   else
     scale_ = scaleHeight;
-  scale(scale_, scale_, scale_);
+  scale(scale_, -scale_, scale_);
   translate(-40,-40,-500);
 }
 
