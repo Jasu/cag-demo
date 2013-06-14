@@ -53,6 +53,7 @@ void setup() {
   smooth();
   stroke(255);
   setupAudio();
+  setupBackground();
 }
 
 void setMatrix()
@@ -71,10 +72,11 @@ void setMatrix()
 
 void draw() {
   clear();
+  pointLight(255, 0, 0, width/2, height/2, 400);
   setMatrix();
   drawBackground(song.position());
   setMatrix();
-  drawMarsu(song.position());
+  //drawMarsu(song.position());
 }
 
 void keyPressed() {
