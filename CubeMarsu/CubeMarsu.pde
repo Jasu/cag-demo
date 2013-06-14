@@ -78,7 +78,7 @@ void draw() {
   setMatrix();
   drawBackground(song.position());
   setMatrix();
-  //drawMarsu(song.position());
+  drawMarsu(song.position());
 }
 
 void keyPressed() {
