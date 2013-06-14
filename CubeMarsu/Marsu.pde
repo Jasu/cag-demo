@@ -48,6 +48,18 @@ float tryGetFloat(JSONObject o, String name, float default_)
   }
 }
 
+String tryGetString(JSONObject o, String name, String default_)
+{
+  try
+  {
+    return o.getString(name);
+  }
+  catch (RuntimeException e)
+  {
+    return default_;
+  }
+}
+
 MarsunPalanen[] loadMarsu(String file)
 {
   JSONArray palaset = loadJSONArray(file);
@@ -79,7 +91,8 @@ MarsunPalanen[] loadMarsu(String file)
                                   oscillationSpeed,
                                   scaleSpeed,
                                   tryGetColor(pala, "color", color(0,0,0)),
-                                  tryGetTexture(pala, "texture"));
+                                  tryGetTexture(pala, "texture"),
+                                  tryGetString(pala, "name", null));
   }
   return result;
 }
@@ -99,5 +112,25 @@ void drawMarsu(float ms)
   for (MarsunPalanen pala : marsu)
   {
     pala.draw(ms);
+  }
+
+  drawLasers(ms);
+}
+
+void drawLasers(float ms)
+{
+  if ((int)(ms / 1000) % 2 != 0)
+    return;
+  for (MarsunPalanen pala : marsu)
+  {
+    if (pala.name != null && (pala.name.equals("eye1") || pala.name.equals("eye2")))
+    {
+      pushMatrix();
+      pala.transform(ms);
+      translate(250, 0, 0);
+      fill(color(255,30,0));
+      box(500, 3, 3);
+      popMatrix();
+    }
   }
 }
