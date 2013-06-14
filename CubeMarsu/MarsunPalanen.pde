@@ -11,6 +11,8 @@ class MarsunPalanen
   float oscillationSpeed;
   float scaleSpeed;
 
+  PImage tex;
+
   MarsunPalanen(PVector offset_, 
                 PVector size_, 
                 PVector axis_,
@@ -18,7 +20,8 @@ class MarsunPalanen
                 PVector scaleMagnitude_,
                 float rotationSpeed_,
                 float oscillationSpeed_,
-                float scaleSpeed_)
+                float scaleSpeed_,
+                PImage tex_)
   {
     offset = offset_;
     size = size_;
@@ -28,6 +31,7 @@ class MarsunPalanen
     rotationSpeed = rotationSpeed_;
     oscillationSpeed = oscillationSpeed_;
     scaleSpeed = scaleSpeed_;
+    tex = tex_;
   }
 
   void draw(float time)
@@ -46,7 +50,10 @@ class MarsunPalanen
 
     rectMode(CENTER);
 
-    box(size.x, size.y, size.z);
+    if (tex != null)
+      texbox(size.x, size.y, size.z, tex);
+    else
+      box(size.x, size.y, size.z);
 
     popMatrix();
   }

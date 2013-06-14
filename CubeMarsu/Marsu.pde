@@ -25,6 +25,7 @@ float tryGetFloat(JSONObject o, String name, float default_)
 
 MarsunPalanen[] loadMarsu(String file)
 {
+  PImage tex = loadImage("kuutio.jpg");
   JSONArray palaset = loadJSONArray(file);
   MarsunPalanen[] result = new MarsunPalanen[palaset.size()];
   for (int i = 0; i < palaset.size(); i++)
@@ -52,7 +53,8 @@ MarsunPalanen[] loadMarsu(String file)
                                   scaleMagnitude,
                                   rotationSpeed,
                                   oscillationSpeed,
-                                  scaleSpeed);
+                                  scaleSpeed,
+                                  tex);
   }
   return result;
 }

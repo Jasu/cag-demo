@@ -47,14 +47,15 @@ void setup() {
   size(CANVAS_WIDTH, CANVAS_HEIGHT, P3D);
   
   // Drawing options that don't change, modify as you wish
- //  noStroke();
+  noStroke();
   frameRate(30);
   fill(255);
   smooth();
-  stroke(255);
+  //stroke(255);
   setupAudio();
   setupBackground();
   setupMarsu();
+  textureMode(NORMAL);
 }
 
 void setMatrix()
@@ -73,11 +74,11 @@ void setMatrix()
 
 void draw() {
   clear();
-  pointLight(255, 0, 0, width/2, height/2, 400);
+  pointLight(255, 255, 127, 400, 300, 400);
   setMatrix();
   drawBackground(song.position());
   setMatrix();
-  //drawMarsu(song.position());
+  drawMarsu(song.position());
 }
 
 void keyPressed() {
