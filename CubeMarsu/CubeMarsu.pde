@@ -97,12 +97,31 @@ void draw() {
       setMatrix();
       drawSky(song.position());
       setMatrix();
-      drawBackground(song.position());
+      drawTitleAndCredits(song.position());
+      break;
+      
+    case 1:
+      setMatrix();
+      drawSky(song.position());
       setMatrix();
       drawMarsu(song.position());
       break;
+      
+    case 2:
+      setMatrix();
+      drawOrangeWall(song.position());
+      setMatrix();
+      drawCloud(song.position());
+      break;
+    
+    case 3:
+      setMatrix();
+      drawPurpleLavaSky(song.position());
+      setMatrix();
+      drawTree(song.position());
+      break;
 
-    case 1:
+    case 4:
       setMatrix();
       drawSubdivisionEffect(song.position());
       break;
@@ -128,6 +147,11 @@ void keyPressed() {
   // Enter: spit out the current position
   else if (key == ENTER) {
     print(song.position() + ", "); 
-    currentEffect ^= 1;
+    
+    if (currentEffect < 4) {
+      currentEffect++;
+    } else {
+      currentEffect = 0;
+    }
   }
 }
