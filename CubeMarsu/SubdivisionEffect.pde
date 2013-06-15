@@ -1,11 +1,13 @@
 
 SubdivisionChain subdivisionChain;
 PImage cubetex;
+Ring ring;
 
 void setupSubdivisionEffect()
 {
   subdivisionChain = new SubdivisionChain(loadImage("electric.jpg"));
   cubetex = loadImage("lava.jpg");
+  ring = new Ring(1000.0, 600.0, 128, loadImage("film.jpg"));
 }
 
 void drawSubdivisionEffect(float ms)
@@ -17,7 +19,14 @@ void drawSubdivisionEffect(float ms)
       0, 200, 0,
       0, -1, 0
   );
+
   float height =(0.5 + sin(ms / 500) / 3 + 0.5) / 2;
+
+  pushMatrix();
+  rotateY(ms / 3000);
+  ring.draw();
+  popMatrix();
+
   pushMatrix();
   translate(0, 600 - 300 * height, 0);
   rotateX(ms / 1000);
