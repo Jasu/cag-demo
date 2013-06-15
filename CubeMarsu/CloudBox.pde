@@ -22,8 +22,6 @@ class CloudBox {
     fill(255);
     translate(x, y, z);
     rotateX(rotX);
-    translate(x, y, z);
-    rotateX(rotX);
     rotateY(rotY);
     rotateZ(rotZ);
     box(size);
