@@ -95,6 +95,8 @@ void draw() {
   {
     case 0:
       setMatrix();
+      drawSky(song.position());
+      setMatrix();
       drawBackground(song.position());
       setMatrix();
       drawMarsu(song.position());

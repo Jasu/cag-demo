@@ -98,15 +98,68 @@ MarsunPalanen[] loadMarsu(String file)
 }
 
 MarsunPalanen[] marsu;
+PImage stars;
+PImage clouds;
+
 
 void setupMarsu()
 {
   marsu = loadMarsu("marsu.json");
+  clouds = loadImage("clouds.jpg");
+  stars = loadImage("stars.png");
+}
+
+void drawBkg(float ms)
+{
+  noLights();
+  fill(255);
+  textureMode(NORMAL);
+  textureWrap(REPEAT);
+  pushMatrix();
+  translate(0, 0, -1000);
+  rotateX(PI/2);
+  scale(1500, 1, 1500);
+
+  beginShape(QUADS);
+
+  texture(clouds);
+
+  float texMod = ms / 3000.0 % 1.0;
+
+  vertex(-1, 1, -1, 0, 0+ texMod);
+  vertex(-1, 1, 1 , 0, 1+ texMod);
+  vertex(1 , 0, 1 , 1, 1+ texMod);
+  vertex(1 , 0, -1, 1, 0+ texMod);
+
+  endShape();
+
+  popMatrix();
+
+  pushMatrix();
+  translate(0, 0, -800);
+  rotateX(PI/2);
+  scale(1500, 1, 1500);
+  beginShape(QUADS);
+
+  texture(stars);
+
+  texMod = ms / 2500.0 % 1.0;
+
+  vertex(-1, 1, -1, 0+texMod, 0+ texMod);
+  vertex(-1, 1, 1 , 0+texMod, 1+ texMod);
+  vertex(1 , 0, 1 , 1+texMod, 1+ texMod);
+  vertex(1 , 0, -1, 1+texMod, 0+ texMod);
+
+  endShape();
+
+  popMatrix();
+  lights();
 }
 
 void drawMarsu(float ms)
 {
-  noStroke();
+  //noStroke();
+  drawBkg(ms);
   rotateY(ms / 1000);
   rotateX(0.5);
 
