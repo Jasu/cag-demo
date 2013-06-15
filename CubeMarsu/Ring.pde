@@ -17,7 +17,7 @@ class Ring
   {
     beginShape(QUADS);
     texture(tex);
-    float angleDiff = TAU / (float)segments;
+    float angleDiff = -TAU / (float)segments;
     float prevX = cos(angleDiff * -1) * radius, 
           prevZ = sin(angleDiff * -1) * radius;
     for (int i = 0; i < segments; ++i)
@@ -25,10 +25,10 @@ class Ring
       float x = cos(angleDiff * i) * radius, 
             z = sin(angleDiff * i) * radius;
 
-      vertex(prevX, -height / 2.0, prevZ, (float)i / (float)segments, 0);
-      vertex(x, -height / 2.0, z, (float)(i + 1) / (float)segments, 0);
-      vertex(x, height / 2.0, z, (float)(i + 1) / (float)segments, 1);
-      vertex(prevX, height / 2.0, prevZ, (float)i / (float)segments, 1);
+      vertex(prevX, -height / 2.0, prevZ, (float)i / (float)segments, 1);
+      vertex(x, -height / 2.0, z, (float)(i + 1) / (float)segments, 1);
+      vertex(x, height / 2.0, z, (float)(i + 1) / (float)segments, 0);
+      vertex(prevX, height / 2.0, prevZ, (float)i / (float)segments, 0);
 
       prevX = x;
       prevZ = z;
