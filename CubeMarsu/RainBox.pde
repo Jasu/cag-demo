@@ -23,7 +23,7 @@ class RainBox {
   public void display() {
     pushMatrix();
     noStroke();
-    fill(255);
+    fill(#4169e1);
     translate(x, y, z);
     translate(0, y+g*(millis()-startMillis)*0.1f, 0);
     rotateX(rotX);

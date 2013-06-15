@@ -20,7 +20,7 @@ class CloudBox {
   public void display() {
     pushMatrix();
     noStroke();
-    fill(255);
+    fill(#4169e1);
     translate(x, y, z);
     rotateX(rotX);
     rotateY(rotY);

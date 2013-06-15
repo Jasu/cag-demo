@@ -30,7 +30,6 @@ class Cloud {
   public void display() {
     
       pushMatrix();
-      
       if (frameCount % 3 == 0) {
         generateRainBox();
         generateRainBox();
