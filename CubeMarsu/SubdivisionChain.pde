@@ -9,6 +9,8 @@ class SubdivisionChain
   ArrayList<Float> outerInnerWeights;
   ArrayList<Float> spreadWeights;
 
+  SubdivisionBlock terminator;
+
   SubdivisionChain(PImage tex_)
   {
     blocks = new ArrayList<SubdivisionBlock>();
@@ -16,7 +18,9 @@ class SubdivisionChain
     outerInnerWeights = new ArrayList<Float>();
     spreadWeights = new ArrayList<Float>();
 
+
     tex = tex_;
+    terminator = new SubdivisionTerminalBlock(tex, 0, 0, 0);
     length = 0;
     float k = 2;
     for (int i = 0; i < 3; ++i)
@@ -65,10 +69,34 @@ class SubdivisionChain
     renderBlocks(1, -1);
   }
 
+
+  void terminate(int side)
+  {
+    SubdivisionBlock previous = blocks.get(blocks.size() - 1);
+
+    int previousSide = side;
+
+    for (int i = 0; i < previous.getNumSplits(); ++i)
+    {
+      pushMatrix();
+
+      side = previous.getSplitSide(i, 0);
+
+      previous.transformSplit(previousSide, side, i);
+
+      terminator.draw(side, 1.0);
+
+      popMatrix();
+    }
+  }
+
   void renderBlocks(int index, int side)
   {
     if (index >= blocks.size())
+    {
+      terminate(side);
       return;
+    }
 
     SubdivisionBlock previous = blocks.get(index - 1);
 

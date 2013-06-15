@@ -127,7 +127,7 @@ class SubdivisionBlock1 extends SubdivisionBlock
 
   void transformSplit(int previousSide, int side, int i)
   {
-    float scale_ = 0.5;
+    float scale_ = 0.65;
 
     if (previousSide == side)
     {
@@ -184,10 +184,10 @@ class SubdivisionBlock2 extends SubdivisionBlock
 
   void drawDivider(int side, float length)
   {
-    float ncoord = 0.5, 
-          ecoord = 0.5, 
-          scoord = -0.5, 
-          wcoord = -0.5;
+    float ncoord = 1.0 - spread,
+          ecoord = 1.0 - spread,
+          scoord = spread - 1.0,
+          wcoord = spread - 1.0;
 
     if (side == NW) { 
       ncoord = spread;
@@ -261,5 +261,51 @@ class SubdivisionBlock2 extends SubdivisionBlock
   int getSplitSide(int i, int side)
   {
     return side;
+  }
+
+}class SubdivisionTerminalBlock extends SubdivisionBlock
+{
+  SubdivisionTerminalBlock(PImage tex, float spread_, float outerInnerBalance_, float height_)
+  {
+    super(tex, spread_, outerInnerBalance_, height_);
+  }
+
+  void drawDivider(int side, float length)
+  {
+    beginShape(TRIANGLES);
+    texture(tex);
+
+    vertex(-0.5, 0, -0.5, 0, 0);
+    vertex(-0.5, 0, 0.5, 1, 0);
+    vertex(0, length, 0, 0.5, 1);
+
+    vertex(-0.5, 0, 0.5, 0, 0);
+    vertex(0.5, 0, -0.5, 1, 0);
+    vertex(0, length, 0, 0.5, 1);
+
+    vertex(0.5, 0, -0.5, 1, 0);
+    vertex(0.5, 0, 0.5, 0, 0);
+    vertex(0, length, 0, 0.5, 1);
+
+    vertex(-0.5, 0, 0.5, 1, 0);
+    vertex(0.5, 0, 0.5, 0, 0);
+    vertex(0, length, 0, 0.5, 1);
+
+    endShape();
+
+  }
+
+  int getNumSplits()
+  {
+    return 0;
+  }
+
+  void transformSplit(int previousSide, int side, int i)
+  {
+  }
+
+  int getSplitSide(int i, int side)
+  {
+    return 0;
   }
 }
