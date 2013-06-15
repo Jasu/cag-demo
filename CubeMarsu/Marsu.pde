@@ -106,6 +106,7 @@ void setupMarsu()
 
 void drawMarsu(float ms)
 {
+  noStroke();
   rotateY(ms / 1000);
   rotateX(0.5);
 
