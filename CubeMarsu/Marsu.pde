@@ -109,7 +109,7 @@ void setupMarsu()
   stars = loadImage("stars.png");
 }
 
-void drawBkg(float ms)
+void drawSky(float ms)
 {
   noLights();
   fill(255);
@@ -158,8 +158,8 @@ void drawBkg(float ms)
 
 void drawMarsu(float ms)
 {
-  //noStroke();
-  drawBkg(ms);
+  noStroke();
+  drawSky(ms);
   rotateY(ms / 1000);
   rotateX(0.5);
 
