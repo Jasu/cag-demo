@@ -15,6 +15,8 @@ import ddf.minim.effects.*;
 int CANVAS_WIDTH = 800;
 int CANVAS_HEIGHT = 600;
 
+int currentEffect = 0;
+
 // You can skip backwards/forwards in you demo by using the 
 // arrow keys; this controls how many milliseconds you skip
 // at one push.
@@ -55,6 +57,7 @@ void setup() {
   setupAudio();
   setupBackground();
   setupMarsu();
+  setupSubdivisionEffect();
   textureMode(NORMAL);
 }
 
@@ -75,10 +78,20 @@ void setMatrix()
 void draw() {
   clear();
   pointLight(255, 255, 255, 400, 300, 0);
-  setMatrix();
-  drawBackground(song.position());
-  setMatrix();
-  drawMarsu(song.position());
+  switch (currentEffect)
+  {
+    case 0:
+      setMatrix();
+      drawBackground(song.position());
+      setMatrix();
+      drawMarsu(song.position());
+      break;
+
+    case 1:
+      setMatrix();
+      drawSubdivisionEffect(song.position());
+      break;
+  }
 }
 
 void keyPressed() {
@@ -100,5 +113,6 @@ void keyPressed() {
   // Enter: spit out the current position
   else if (key == ENTER) {
     print(song.position() + ", "); 
+    currentEffect ^= 1;
   }
 }
