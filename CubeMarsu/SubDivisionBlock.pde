@@ -14,13 +14,11 @@ abstract class SubdivisionBlock
   float spread;
   float outerInnerBalance;
   float height;
+  float midSideBalance;
 
-  SubdivisionBlock(PImage tex_, float spread_, float outerInnerBalance_, float height_)
+  SubdivisionBlock(PImage tex_)
   {
     tex = tex_;
-    spread = spread_;
-    height = height_;
-    outerInnerBalance = outerInnerBalance_;
   }
 
   void draw(int side, float length)
@@ -61,6 +59,11 @@ abstract class SubdivisionBlock
     height = height_;
   }
 
+  void setMidSideBalance(float midSideBalance_)
+  {
+    midSideBalance = midSideBalance_;
+  }
+
   abstract void drawDivider(int side, float length);
   abstract int  getNumSplits();
   abstract void transformSplit(int previousSide, int side, int i);
@@ -70,9 +73,9 @@ abstract class SubdivisionBlock
 
 class SubdivisionBlock1 extends SubdivisionBlock
 {
-  SubdivisionBlock1(PImage tex, float spread_, float outerInnerBalance_, float height_)
+  SubdivisionBlock1(PImage tex)
   {
-    super(tex, spread_, outerInnerBalance_, height_);
+    super(tex);
   }
 
   void drawDivider(int side, float length)
@@ -135,24 +138,25 @@ class SubdivisionBlock1 extends SubdivisionBlock
     }
     else if (previousSide == opposite(side))
     {
-      scale_ = (1 - outerInnerBalance) * scale_;
+      scale_ = (1.0 - outerInnerBalance) * scale_;
+    }
+
+    if (previousSide != side && previousSide != opposite(side))
+    {
+      scale_ = (midSideBalance) * scale_;
+    }
+    else
+    {
+      scale_ = (2.0 - midSideBalance) * scale_;
     }
 
     float offset = spread - scale_ / 2;
     switch (i)
-    {
-      case 0:
-        translate(-offset, 1, -offset);
-        break;
-      case 1:
-        translate(-offset, 1, offset);
-        break;
-      case 2:
-        translate(offset, 1, offset);
-        break;
-      case 3:
-        translate(offset, 1, -offset);
-        break;
+    { 
+      case 0: translate(-offset, 1, -offset); break;
+      case 1: translate(-offset, 1, offset); break;
+      case 2: translate(offset, 1, offset); break;
+      case 3: translate(offset, 1, -offset); break;
     }
     scale(scale_, scale_*1.5, scale_);
   }
@@ -177,9 +181,9 @@ class SubdivisionBlock1 extends SubdivisionBlock
 
 class SubdivisionBlock2 extends SubdivisionBlock
 {
-  SubdivisionBlock2(PImage tex, float spread_, float outerInnerBalance_, float height_)
+  SubdivisionBlock2(PImage tex)
   {
-    super(tex, spread_, outerInnerBalance_, height_);
+    super(tex);
   }
 
   void drawDivider(int side, float length)
@@ -265,9 +269,9 @@ class SubdivisionBlock2 extends SubdivisionBlock
 
 }class SubdivisionTerminalBlock extends SubdivisionBlock
 {
-  SubdivisionTerminalBlock(PImage tex, float spread_, float outerInnerBalance_, float height_)
+  SubdivisionTerminalBlock(PImage tex)
   {
-    super(tex, spread_, outerInnerBalance_, height_);
+    super(tex);
   }
 
   void drawDivider(int side, float length)

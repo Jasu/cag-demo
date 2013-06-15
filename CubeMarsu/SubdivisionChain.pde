@@ -7,6 +7,7 @@ class SubdivisionChain
 
   ArrayList<Float> heightWeights;
   ArrayList<Float> outerInnerWeights;
+  ArrayList<Float> midSideWeights;
   ArrayList<Float> spreadWeights;
 
   SubdivisionBlock terminator;
@@ -17,23 +18,26 @@ class SubdivisionChain
     heightWeights = new ArrayList<Float>();
     outerInnerWeights = new ArrayList<Float>();
     spreadWeights = new ArrayList<Float>();
+    midSideWeights = new ArrayList<Float>();
 
 
     tex = tex_;
-    terminator = new SubdivisionTerminalBlock(tex, 0, 0, 0);
+    terminator = new SubdivisionTerminalBlock(tex);
     length = 0;
     float k = 2;
     for (int i = 0; i < 3; ++i)
     {
-      blocks.add(new SubdivisionBlock2(tex, 0.9, 1.0, 0.4));
-      blocks.add(new SubdivisionBlock1(tex, 0.9, 1.0, 0.4));
-      spreadWeights.add(k + random(-0.1, 0.1));
-      outerInnerWeights.add(k + random(-0.1, 0.1));
-      heightWeights.add(k + random(-0.1, 0.1));
+      blocks.add(new SubdivisionBlock2(tex));
+      blocks.add(new SubdivisionBlock1(tex));
+      spreadWeights.add(k + random(-0.2, 0.2));
+      outerInnerWeights.add(k + random(-0.2, 0.2));
+      heightWeights.add(k + random(-0.2, 0.2));
+      midSideWeights.add(k + random(-0.2, 0.2));
       k /= 1.1;
-      spreadWeights.add(k + random(-0.1, 0.1));
-      outerInnerWeights.add(k + random(-0.1, 0.1));
-      heightWeights.add(k + random(-0.1, 0.1));
+      spreadWeights.add(k + random(-0.2, 0.2));
+      outerInnerWeights.add(k + random(-0.2, 0.2));
+      heightWeights.add(k + random(-0.2, 0.2));
+      midSideWeights.add(k + random(-0.2, 0.2));
       k /= 1.1;
     }
   }
@@ -51,6 +55,14 @@ class SubdivisionChain
     for (int i = 0; i < blocks.size(); ++i)
     {
       blocks.get(i).setOuterInnerBalance(outerInnerWeights.get(i) * balance);
+    }
+  }
+
+  void setMidSideBalance(float balance)
+  {
+    for (int i = 0; i < blocks.size(); ++i)
+    {
+      blocks.get(i).setMidSideBalance(midSideWeights.get(i) * balance);
     }
   }
 

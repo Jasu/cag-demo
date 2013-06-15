@@ -16,6 +16,11 @@ int CANVAS_WIDTH = 800;
 int CANVAS_HEIGHT = 600;
 
 int currentEffect = 0;
+int beatCounter = 0;
+Boolean isBeat = false;
+
+BeatDetect beatDetector = new BeatDetect();
+
 
 // You can skip backwards/forwards in you demo by using the 
 // arrow keys; this controls how many milliseconds you skip
@@ -38,9 +43,10 @@ int[] exampleSync = {2229, 3227, 4202, 5201, 6199, 7151, 8219, 9195, 10216, 1119
  */
 void setupAudio() {
   minim = new Minim(this);
-  song = minim.loadFile("soundtrack.mp3");
+  song = minim.loadFile("soundtrack.mp3", 2048);
   // Uncomment this if you want the demo to start instantly
   song.play();
+  beatDetector = new BeatDetect();
 }
 
 void setup() {
@@ -78,6 +84,13 @@ void setMatrix()
 void draw() {
   clear();
   pointLight(255, 255, 255, 400, 300, 0);
+  ambientLight(30, 30, 30);
+  beatDetector.detect(song.mix);
+
+  isBeat = false;
+  if (beatDetector.isOnset()) { if (beatCounter == 0) isBeat = true; beatCounter += 3; } else beatCounter = 0;
+  //if (isBeat) currentEffect ^= 1;
+
   switch (currentEffect)
   {
     case 0:
